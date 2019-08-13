@@ -5,4 +5,4 @@ class MoviesAppConfig(AppConfig):
     """Users app config."""
 
     name = 'app.movies'
-    verbose_name = 'movies'
+    verbose_name = 'movie'

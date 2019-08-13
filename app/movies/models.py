@@ -19,7 +19,7 @@ class Movies(models.Model):
     director = models.CharField(max_length=256)
     runtime = models.CharField(max_length=20, null=True)
     language = models.CharField(max_length=50, null=True)
-    file = models.FileField(default='')
+    file = models.FileField(default='', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -40,6 +40,8 @@ class ListMovies(models.Model):
 
 
 class Recomment(models.Model):
+    """A user can recommend movies from other users"""
+
     movies = models.ForeignKey(Movies, on_delete=models.CASCADE)
     comments = models.TextField(max_length=500, default='What do you think of this movie', null=True)
     #user_comment = models.ForeignKey(User, on_delete=models.PROTECT)
