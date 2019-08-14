@@ -15,7 +15,7 @@ class BaseViewTest(APITestCase):
         if title != "" and genre != "" and cast!= "" and director != "":
             return Movies.objects.create(title=title, genre=genre, cast=cast, director=director)
         else:
-            print("faltan datos")
+            print("complete data")
 
     def movie_request(self, kind="post", **kwargs):
         """Post create movie and put"""
@@ -113,7 +113,7 @@ class GetASingleMovieTest(BaseViewTest):
         serialized = MoviesSerializer(expected)
         self.assertEqual(response.data, serialized.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.retrieve_movie(self.invalid_movie_id)# ??
+        response = self.retrieve_movie(self.invalid_movie_id)
         self.assertEqual(
             response.data["message"],
             "Movie with id: 50 does not exist"
