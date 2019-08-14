@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from user.models import User, Profile
+from user.models import User, Profile, BlackListedToken
 
 
 class CustomUserAdmin(UserAdmin):
@@ -21,3 +21,5 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
+
+admin.site.register(BlackListedToken)

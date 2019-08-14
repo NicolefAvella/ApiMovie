@@ -8,7 +8,7 @@ from user.models import User
 from django.contrib.auth import authenticate, login
 
 #serializers
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer, BlackSerializer
 
 
 # Get the JWT settings, add these lines after the import/from lines
@@ -17,14 +17,15 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 class UserLoginAPIView(generics.CreateAPIView):
-    """User login API view"""
+    #User login API view"""
 
     permission_classes = (permissions.AllowAny,)
 
-    queryset = User.objects.all()
+    #queryset = User.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        """HTTP POST request"""
+    #TODO : ERASER
+    """def post(self, request, *args, **kwargs):
+        #HTTP POST request
 
         username = request.data.get("username", "")
         password = request.data.get("password", "")
@@ -40,7 +41,7 @@ class UserLoginAPIView(generics.CreateAPIView):
                 )})
             serializer.is_valid()
             return Response(serializer.data)
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)"""
 
 
 class RegisterUsers(generics.CreateAPIView):
@@ -48,22 +49,6 @@ class RegisterUsers(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
 
-    def post(self, request, *args, **kwargs):
-        username = request.data.get("username", "")
-        password = request.data.get("password", "")
-        email = request.data.get("email", "")
-        first_name = request.data.get("first_name", "")
-        if not username and not password and not email:
-            return Response(
-                data={
-                    "message": "username, password and email is required to register a user"
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        new_user = User.objects.create_user(
-            username=username, password=password, email=email
-        )
-        return Response(
-            data=UserSerializer(new_user).data,
-            status=status.HTTP_201_CREATED
-        )
+class BlackList(generics.CreateAPIView):
+    """Archive token for user, invalidate token"""
+    serializer_class = BlackSerializer

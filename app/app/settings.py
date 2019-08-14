@@ -52,6 +52,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+        'app.permissions.IsTokenValid'
         #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     # Authentication settings
