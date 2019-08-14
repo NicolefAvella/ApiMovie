@@ -3,6 +3,7 @@ from .models import Movies
 
 
 class MoviesSerializer(serializers.ModelSerializer):
+    """Movies serializer"""
     title = serializers.CharField(required=True)
     genre = serializers.CharField(required=True)
     director = serializers.CharField(required=True)

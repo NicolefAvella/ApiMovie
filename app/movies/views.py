@@ -37,7 +37,7 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movies.objects.all()
     serializer_class = MoviesSerializer
 
-    # deatil
+    # detail
     def get(self, request, *args, **kwargs):
         try:
             a_movie = self.queryset.get(pk=kwargs["pk"])
@@ -52,8 +52,8 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     # edit
     def put(self, request, *args, **kwargs):
+        """Edit a movie"""
         try:
-            #a_movie = self.queryset.get(pk=kwargs["pk"])
             instance = self.get_object()
 
             if instance.user != request.user:
@@ -61,12 +61,12 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
                     data={
                         "message": "No unauthorized"
                     },
-                    status=status.HTTP_401_UNAUTHORIZED# HTTP_401_UNAUTHORIZED
+                    status=status.HTTP_401_UNAUTHORIZED
                 )
-
             serializer = MoviesSerializer()
             updated_movie = serializer.update(instance, request.data)
             return Response(MoviesSerializer(updated_movie).data)
+
         except Movies.DoesNotExist:
             return Response(
                 data={
@@ -77,6 +77,7 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
     def delete(self, request, *args, **kwargs):
+        """Delete a movie"""
         try:
             instance = self.get_object()
 
@@ -85,11 +86,11 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
                     data={
                         "message": "No unauthorized"
                     },
-                    status=status.HTTP_401_UNAUTHORIZED# HTTP_401_UNAUTHORIZED
+                    status=status.HTTP_401_UNAUTHORIZED
                 )
-
             instance.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+
         except Movies.DoesNotExist:
             return Response(
                 data={
@@ -99,6 +100,7 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
             )
 
 class RecommentView(generics.ListAPIView):
+    """Recomment movie, filter genre"""
     serializer_class = MoviesSerializer
 
     def get_queryset(self):

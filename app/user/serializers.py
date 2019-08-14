@@ -2,10 +2,6 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from user.models import User, BlackListedToken
 
-class TokenSerializer(serializers.Serializer):
-    """This serializer serializes the token data"""
-    token = serializers.CharField(max_length=255)
-    # TODO: delete
 
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(

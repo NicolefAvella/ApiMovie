@@ -16,33 +16,6 @@ jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
-class UserLoginAPIView(generics.CreateAPIView):
-    #User login API view"""
-
-    permission_classes = (permissions.AllowAny,)
-
-    #queryset = User.objects.all()
-
-    #TODO : ERASER
-    """def post(self, request, *args, **kwargs):
-        #HTTP POST request
-
-        username = request.data.get("username", "")
-        password = request.data.get("password", "")
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            serializer = TokenSerializer(data={
-                # using drf jwt utility functions to generate a token
-                "token": jwt_encode_handler(
-                    jwt_payload_handler(user)
-                )})
-            serializer.is_valid()
-            return Response(serializer.data)
-        return Response(status=status.HTTP_401_UNAUTHORIZED)"""
-
 
 class RegisterUsers(generics.CreateAPIView):
     """ POST register user """
