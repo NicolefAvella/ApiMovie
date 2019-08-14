@@ -38,7 +38,7 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
         try:
             a_movie = self.queryset.get(pk=kwargs["pk"])
             return Response(MoviesSerializer(a_movie).data)
-        except Movies.DoesNotExit:
+        except Movies.DoesNotExist:
             return Response(
                 data={
                     "message": "Movie with id: {} does not exist".format(kwargs["pk"])
@@ -52,7 +52,7 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
             serializer = MoviesSerializer()
             updated_movie = serializer.update(a_movie, request.data)
             return Response(MoviesSerializer(updated_movie).data)
-        except Movies.DoesNotExit:
+        except Movies.DoesNotExist:
             return Response(
                 data={
                     "message": "Movie with id: {} does not exist".format(kwargs["pk"])
@@ -65,7 +65,7 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
             a_movie = self.queryset.get(pk=kwargs["pk"])
             a_movie.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Movies.DoesNotExit:
+        except Movies.DoesNotExist:
             return Response(
                 data={
                     "message": "Movie with id: {} does not exist".format(kwargs["pk"])

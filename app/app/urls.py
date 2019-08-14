@@ -26,6 +26,5 @@ urlpatterns = [
     path('api-token-auth/', obtain_jwt_token, name='create-token'),
     re_path('api/',include('user.urls')),
     re_path('api/',include('movies.urls')),
-    #path('api/',include(('user.urls', 'users'), namespace='users')),
-    #path('api/',include(('movies.urls', 'movies'), namespace='movies')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

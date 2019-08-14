@@ -46,6 +46,7 @@ class UserLoginAPIView(generics.CreateAPIView):
 class RegisterUsers(generics.CreateAPIView):
     """ POST register user """
     permission_classes = (permissions.AllowAny,)
+    serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
         username = request.data.get("username", "")

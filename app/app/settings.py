@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5mvyh&+=!1&zf-*#d6aqjs+h$kbk3fftmt(2ii!5q0en83shre'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -44,14 +44,15 @@ INSTALLED_APPS = [
     'movies',
 ]
 
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.BrowsableAPIRenderer',
-        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.JSONRenderer'
     ),
 
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     # Authentication settings
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -186,3 +187,8 @@ MEDIA_ROOT = '/vol/web/media'
 STATIC_ROOT = '/vol/web/static'
 
 AUTH_USER_MODEL = 'user.User'
+
+try:
+    from .local_settings import *
+except ImportError:
+    print ("error not local_settings")
