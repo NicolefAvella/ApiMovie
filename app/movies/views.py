@@ -4,7 +4,7 @@ from rest_framework.views import status
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Movies
+from .models import Movies, Recomment
 from .data import ACTION
 from .serializers import MoviesSerializer
 
@@ -97,3 +97,11 @@ class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
+
+class RecommentView(generics.ListAPIView):
+    serializer_class = MoviesSerializer
+
+    def get_queryset(self):
+        filter = self.request.query_params.get('genre', ACTION)
+
+        return Movies.objects.filter(genre__iexact=filter)
