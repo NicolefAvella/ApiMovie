@@ -2,6 +2,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import status
 
+from django.core.exceptions import ObjectDoesNotExist
+
 from .models import Movies
 from .serializers import MoviesSerializer
 
@@ -28,6 +30,9 @@ class ListMoviesView(generics.ListCreateAPIView):
 
 class MoviesDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Get detail, put and delete movie """
+
+    queryset = Movies.objects.all()
+    serializer_class = MoviesSerializer
 
     def get(self, request, *args, **kwargs):
         try:
