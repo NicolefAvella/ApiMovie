@@ -53,4 +53,4 @@ class BlackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlackListedToken
-        fields = ('token')
+        fields = ('token', )

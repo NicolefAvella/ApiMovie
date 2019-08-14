@@ -4,14 +4,14 @@ from django.utils import timezone
 from .data import TYPE_OPTIONS
 from .data import ACTION
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib.auth.models import User
+from  user.models import User
 
 class Movies(models.Model):
     """Model of a movie
     A user can have many movies
     """
 
-    #user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=200, null=False)
     genre = models.CharField(max_length=50, choices=TYPE_OPTIONS, default=ACTION)
     year = models.CharField(max_length=4, null=True)
